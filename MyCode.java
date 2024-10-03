@@ -1,31 +1,69 @@
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Scanner;
 
 public class MyCode{
     public static void main(String[] args) {
         char[][] cells={{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
-       Scanner scanner=new Scanner(System.in);
-       while (true) {
-           if(CheckExist(cells)){
-               scanner.close();
-               System.out.println("GAME IS ENDED \n RELOADED AND PLAY AGAIN 👽");
-               break;
-           }
-           if (CheckWining(cells,'X')){
-               System.out.println("====== You Won =====");
-               break;
-           }
-           if (CheckWining(cells,'O')){
-               System.out.println("====== You Lost =====");
-               break;
-           }
-           PlayerMove(scanner, cells);
+ JButton[][] buttons=new JButton[3][3];
+        JFrame frame=new JFrame();
+        frame.setSize(500,500);
+        frame.setTitle(" Toe Toa X-O ");
+        frame.setLayout(new GridLayout(3,3));
+        for(int i=0;i<cells.length;i++) {
 
-//        Computer move
-           ComputerTurn(cells);
+            for (int y = 0; y < cells[i].length; y++) {
+                JButton btn = new JButton(String.valueOf(cells[i][y]));
+                btn.setFont(new Font("Arial",Font.ROMAN_BASELINE,34));
+                buttons[i][y]=btn;
+final int row=i,col=y;
+                 btn.setText(String.valueOf(cells[i][y]));
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
 
-           Print(cells);
-           }
+                        System.out.println("clicked Button has "+ "x :"+row+"& y:"+col);
+
+                        btn.setBackground(Color.magenta);
+                    }
+                });
+                frame.add(btn);
+            }
+        }
+
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setResizable(false);
+
+
+//       Scanner scanner=new Scanner(System.in);
+//       while (true) {
+//           if(CheckExist(cells)){
+////               scanner.close();
+//               System.out.println("GAME IS ENDED \n RELOADED AND PLAY AGAIN 👽");
+//               break;
+//           }
+//           if (CheckWining(cells,'X')){
+//               System.out.println("====== You Won =====");
+//               break;
+//           }
+//           if (CheckWining(cells,'O')){
+//               System.out.println("====== You Lost =====");
+//               break;
+//           }
+//
+////           PlayerMove(frame, cells);
+//
+////        Computer move
+//           ComputerTurn(cells);
+//
+//           Print(cells);
+//           }
 
     }
     private static boolean CheckWining(char[][] cells,char symbol){
@@ -55,21 +93,22 @@ private static boolean CheckExist(char[][] cells){
                    }
         return true;
 }
-    private static void PlayerMove(Scanner scanner, char[][] cells) {
-        String InputUser;
-       while (true) {
-           System.out.println("Start with a number 1--->9");
-            InputUser = scanner.nextLine();
-//     check if valid move
-           if (CheckisValid(cells, Integer.parseInt(InputUser))) {
-break;
-           } else {
-System.out.println("invalid num");
-           }
-       }
-        //ASSIGN CELL WITH CORRESPONDENT
-        Fill(InputUser, cells,'X');
-    }
+//    private static void PlayerMove(JFrame frame, char[][] cells) {
+//        frame.getB
+//        String InputUser;
+//       while (true) {
+//           System.out.println("Start with a number 1--->9");
+//            InputUser = scanner.nextLine();
+////     check if valid move
+//           if (CheckisValid(cells, Integer.parseInt(InputUser))) {
+//break;
+//           } else {
+//System.out.println("invalid num");
+//           }
+//       }
+//        //ASSIGN CELL WITH CORRESPONDENT
+//        Fill(InputUser, cells,'X');
+//    }
     private static boolean CheckisValid(char[][] cells,int Input){
         switch (Input){
             case 1:
